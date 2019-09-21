@@ -11,10 +11,16 @@ echo ${TZ} > /etc/timezone
 
 # Install Dependency
 RUN \
-rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 yum makecache fast && \
 yum update -y && \
-yum install -y git rsync wget nginx
+yum install -y git rsync wget
+
+# Install Nginx
+RUN \
+wget http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
+rpm -ivh nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
+rm -f nginx-release-centos-7-0.el7.ngx.noarch.rpm && \
+yum install -y nginx
 
 # Install Node.js
 RUN \
